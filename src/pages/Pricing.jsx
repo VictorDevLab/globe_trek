@@ -1,7 +1,10 @@
+import NavBar from "../components/NavBar"
+
 function Pricing() {
     return (
         <div>
-            Pricing
+            <NavBar />
+            <h1>Pricing</h1>
         </div>
     )
 }

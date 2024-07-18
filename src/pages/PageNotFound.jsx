@@ -1,7 +1,10 @@
+import NavBar from "../components/NavBar"
+
 function PageNotFound() {
     return (
         <div>
-            Page Not Found :(
+             <NavBar />
+           <h1> Page Not Found :(</h1>
         </div>
     )
 }

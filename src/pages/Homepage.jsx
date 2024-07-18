@@ -1,7 +1,10 @@
+import NavBar from "../components/NavBar"
+
 function Homepage() {
     return (
         <div>
-            WorldTrek Home page
+            <NavBar />
+            <h1>WorldTrek Home page</h1>
         </div>
     )
 }
