@@ -1,21 +1,22 @@
-import { NavLink } from "react-router-dom"
+import { NavLink } from "react-router-dom";
+import styles from "./NavBar.module.css";
 
 function NavBar() {
-    return (
-        <nav>
-            <div>
-                <ul>
-                    <NavLink to="/">Home</NavLink>
-                </ul>
-                <ul>
-                    <NavLink to='/pricing'>Pricing</NavLink>
-                </ul>
-                <ul>
-                    <NavLink to="/products">Products</NavLink>
-                </ul>
-            </div>
-        </nav>
-    )
+  return (
+    <nav className={styles.nav}>
+     <ul>
+     <li>
+        <NavLink to="/">Home</NavLink>
+      </li>
+      <li>
+        <NavLink to="/pricing">Pricing</NavLink>
+      </li>
+      <li>
+        <NavLink to="/products">Products</NavLink>
+      </li>
+     </ul>
+    </nav>
+  );
 }
 
-export default NavBar
+export default NavBar;
