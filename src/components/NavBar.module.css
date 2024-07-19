@@ -7,3 +7,7 @@ background-color: rgb(226, 122, 43);
     justify-content: space-between;
     list-style: none;
 }
+/* this is how you apply global styles in modules */
+.nav :global(.active) {
+    color: greenyellow;
+}
