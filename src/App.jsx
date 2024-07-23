@@ -13,7 +13,7 @@ const BASE_URL = "http://localhost:8000"
 
 function App() {
 
-  const [cities, setCities] = useState({})
+  const [cities, setCities] = useState([])
   const [loading, setIsLoading] = useState(false)
 
   useEffect(function () {
