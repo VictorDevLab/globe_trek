@@ -24,7 +24,7 @@ function App() {
           <Route path="app" element={<AppLayout />}>
             {/* Nested Routes/child routes */}
             {/* Redirects to cities when the path is activated. also don't forget index and replace + Navigate */}
-            <Route index element={<Navigate />} />
+            <Route index element={<Navigate replace to="cities" />} />
             <Route path="cities" element={<CityList />} />
             <Route path="cities/:id" element={<City />} />
             <Route path="countries" element={<CountryList />} />
