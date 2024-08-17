@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react'
 import { useCitiesContext } from '../contexts/CitiesContext'
 import { useGeolocation } from '../hooks/useGeolocation'
 import Button from './Button'
+import { useUrlPosition } from '../hooks/useUrlPosition'
 
 
 function Map() {
@@ -13,29 +14,34 @@ function Map() {
     const [mapPosition, setMapPosition] = useState([40, 0])
     const { cities } = useCitiesContext()
     // custom hook 
-    const { isLoading: isLoadingPosition, position: geolocationPosition, getPosition } = useGeolocation()
+    const { isLoading: isLoadingPosition, position: geoLocationPosition, getPosition } = useGeolocation()
 
     setMapPosition
     useSearchParams
-    //useSearchParams is a custom hook
-    const [searchParams] = useSearchParams()
-
-
-    const lat = searchParams.get('lat')
-    const lng = searchParams.get('long')
-
+    //my custom hook
+    const [lat, lng] = useUrlPosition()
     useEffect(function () {
         if (lat && lng) setMapPosition([lat, lng])
     }, [lat, lng])
 
-    useEffect(function () {
-        if (geolocationPosition)
-            setMapPosition([geolocationPosition.lat, geolocationPosition.lng])
-        console.log("Does it even run?", geolocationPosition)
-    }, [geolocationPosition])
+    useEffect(
+
+        function () {
+
+            if (geoLocationPosition && geoLocationPosition.lat && geoLocationPosition.lng) {
+
+                setMapPosition([geoLocationPosition.lat, geoLocationPosition.lng]);
+
+            }
+
+        },
+
+        [geoLocationPosition]
+
+    );
     return (
         <div className={styles.mapContainer}>
-            <Button type="position" onClick={getPosition}>
+            <Button type="position" onClick={() => getPosition}>
                 {isLoadingPosition ? "Loading..." : "Use Your Position"}
             </Button>
             <MapContainer center={mapPosition} zoom={6} scrollWheelZoom={true} className={styles.map}>
@@ -69,6 +75,7 @@ function DetectClick() {
     const navigate = useNavigate()
     useMapEvents({
         click: (e) => {
+            console.log("bug?", e)
             navigate(`form?lat=${e.latlng.lat}&lng=${e.latlng.lng}`)
         }
     })
