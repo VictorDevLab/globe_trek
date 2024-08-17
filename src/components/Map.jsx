@@ -1,26 +1,30 @@
 
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import styles from './Map.module.css'
-import { MapContainer, TileLayer, Popup, Marker } from 'react-leaflet'
-import { useState } from 'react'
+import { MapContainer, TileLayer, Popup, Marker, useMap, useMapEvents } from 'react-leaflet'
+import { useEffect, useState } from 'react'
 import { useCitiesContext } from '../contexts/CitiesContext'
 
 
 function Map() {
     //useNavigate
     const [mapPosition, setMapPosition] = useState([40, 0])
-    const navigate = useNavigate()
     const { cities } = useCitiesContext()
     setMapPosition
     useSearchParams
     //useSearchParams is a custom hook
-    // const [searchParams, setSearchParams] = useSearchParams()
+    const [searchParams] = useSearchParams()
 
-    // const lat = searchParams.get('lat')
-    // const lng = searchParams.get('long')
+
+    const lat = searchParams.get('lat')
+    const lng = searchParams.get('long')
+
+    useEffect(function () {
+        if (lat && lng) setMapPosition([lat, lng])
+    }, [lat, lng])
     return (
-        <div className={styles.mapContainer} onClick={() => navigate('form')}>
-            <MapContainer center={mapPosition} zoom={13} scrollWheelZoom={true} className={styles.map}>
+        <div className={styles.mapContainer}>
+            <MapContainer center={mapPosition} zoom={6} scrollWheelZoom={true} className={styles.map}>
                 <TileLayer
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -34,9 +38,26 @@ function Map() {
                         </Marker>
                     ))
                 }
+                <ChangeCenter position={mapPosition} />
+                <DetectClick />
             </MapContainer>
-        </div>
+        </div >
     )
+}
+
+function ChangeCenter({ position }) {
+    const map = useMap()
+    map.setView(position)
+    return null
+}
+
+function DetectClick() {
+    const navigate = useNavigate()
+    useMapEvents({
+        click: (e) => {
+            navigate(`form?lat=${e.latlng.lat}&lng=${e.latlng.lng}`)
+        }
+    })
 }
 
 export default Map
