@@ -4,12 +4,17 @@ import styles from './Map.module.css'
 import { MapContainer, TileLayer, Popup, Marker, useMap, useMapEvents } from 'react-leaflet'
 import { useEffect, useState } from 'react'
 import { useCitiesContext } from '../contexts/CitiesContext'
+import { useGeolocation } from '../hooks/useGeolocation'
+import Button from './Button'
 
 
 function Map() {
     //useNavigate
     const [mapPosition, setMapPosition] = useState([40, 0])
     const { cities } = useCitiesContext()
+    // custom hook 
+    const { isLoading: isLoadingPosition, position: geolocationPosition, getPosition } = useGeolocation()
+
     setMapPosition
     useSearchParams
     //useSearchParams is a custom hook
@@ -22,8 +27,17 @@ function Map() {
     useEffect(function () {
         if (lat && lng) setMapPosition([lat, lng])
     }, [lat, lng])
+
+    useEffect(function () {
+        if (geolocationPosition)
+            setMapPosition([geolocationPosition.lat, geolocationPosition.lng])
+        console.log("Does it even run?", geolocationPosition)
+    }, [geolocationPosition])
     return (
         <div className={styles.mapContainer}>
+            <Button type="position" onClick={getPosition}>
+                {isLoadingPosition ? "Loading..." : "Use Your Position"}
+            </Button>
             <MapContainer center={mapPosition} zoom={6} scrollWheelZoom={true} className={styles.map}>
                 <TileLayer
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
