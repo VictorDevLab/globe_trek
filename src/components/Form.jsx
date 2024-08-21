@@ -12,7 +12,6 @@ import DatePicker from "react-datepicker";
 import { useCitiesContext } from "../contexts/CitiesContext";
 
 
-
 const BASE_URL = "https://api.bigdatacloud.net/data/reverse-geocode-client"
 export function convertToEmoji(countryCode) {
   const codePoints = countryCode
@@ -31,9 +30,9 @@ function Form() {
   const [isLoadingGeoCoding, setIsLoadingGeoCoding] = useState(false);
   const [emoji, setEmoji] = useState("")
 
-  const { addCity } = useCitiesContext()
-
+  const { addCity, loading } = useCitiesContext()
   const navigate = useNavigate()
+
 
   useEffect(
     function () {
@@ -53,10 +52,9 @@ function Form() {
         }
       }
       fetchCityData()
-
     }, [lat, lng])
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault()
     const newCity = {
       cityName,
@@ -69,11 +67,12 @@ function Form() {
       }
     }
 
-    addCity(newCity)
+    await addCity(newCity)
+    navigate('/app/cities')
   }
   isLoadingGeoCoding
   return (
-    <form className={styles.form} onSubmit={handleSubmit}>
+    <form className={`${styles.form} ${loading ? styles.loading : ""} `} onSubmit={handleSubmit}>
       <div className={styles.row}>
         <label htmlFor="cityName">City name</label>
         <input
