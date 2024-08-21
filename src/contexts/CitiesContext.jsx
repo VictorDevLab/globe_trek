@@ -47,10 +47,7 @@ function CitiesProvider({ children }) {
         },
       });
       const data = await res.json();
-
-<<<<<<< Updated upstream
       setCities((cities) => [...cities, data]);
->>>>>>> Stashed changes
     } catch {
       alert("there was an error Adding a city");
     } finally {
