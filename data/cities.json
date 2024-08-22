@@ -35,42 +35,6 @@
         "lng": 13.376933665713324
       },
       "id": "98443197"
-    },
-    {
-      "id": "1aa5",
-      "cityName": "Nairobi",
-      "country": "",
-      "emoji": "🇰🇪",
-      "date": "2024-08-20T18:57:38.422Z",
-      "notes": "waah",
-      "position": {
-        "lat": "42.32606244456202",
-        "lng": null
-      }
-    },
-    {
-      "id": "0b7f",
-      "cityName": "Nairobi",
-      "country": "",
-      "emoji": "🇰🇪",
-      "date": "2024-08-21T04:56:41.681Z",
-      "notes": "Okay",
-      "position": {
-        "lat": "41.343824581185714",
-        "lng": null
-      }
-    },
-    {
-      "id": "0d6f",
-      "cityName": "Nairobi",
-      "country": "",
-      "emoji": "🇰🇪",
-      "date": "2024-08-20T19:01:21.908Z",
-      "notes": "ghfuyfj",
-      "position": {
-        "lat": "40.111688665595956",
-        "lng": null
-      }
     }
   ]
 }

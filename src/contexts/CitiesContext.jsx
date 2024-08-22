@@ -1,12 +1,50 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useReducer,
+  useState,
+} from "react";
 
 const BASE_URL = "http://localhost:8000";
 const CitiesContext = createContext();
 
+const initialState = {
+  cities: [],
+  loading: false,
+  currentCity: {},
+};
+
+function reducer(state, action) {
+  switch (action.type) {
+    case "loading": return {
+      ...state, loading: true
+    }
+    case "cities/loaded":
+      return {
+        ...state,
+        cities: action.payload,
+        loading: false,
+      };
+
+    case "cities/created":
+
+    case "cities/deleted":
+
+    default:
+      throw new Error("Invalid action type");
+  }
+}
+
 function CitiesProvider({ children }) {
-  const [cities, setCities] = useState([]);
-  const [loading, setIsLoading] = useState(false);
-  const [currentCity, setCurrentCity] = useState({});
+  // const [cities, setCities] = useState([]);
+  // const [loading, setIsLoading] = useState(false);
+  // const [currentCity, setCurrentCity] = useState({});
+
+  const [{ cities, loading, currentCity }, dispatch] = useReducer(
+    reducer,
+    initialState
+  );
 
   useEffect(function () {
     async function fetchData() {
@@ -60,7 +98,7 @@ function CitiesProvider({ children }) {
       await fetch(`${BASE_URL}/cities/${id}`, {
         method: "DELETE",
       });
-      setCities((cities) => cities.filter(city => city.id !== id));
+      setCities((cities) => cities.filter((city) => city.id !== id));
     } catch {
       alert("there was an error deleting city");
     } finally {
