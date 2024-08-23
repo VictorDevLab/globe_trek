@@ -1,4 +1,4 @@
-import { act, createContext, useContext } from "react";
+import { createContext, useContext, useReducer } from "react";
 
 const AuthContext = createContext();
 
@@ -41,7 +41,7 @@ function AuthProvider({ children }) {
     dispatch({ type: "LOGOUT" });
   }
 
-  return <AuthContext.Provider>{children}</AuthContext.Provider>;
+  return <AuthContext.Provider value={{user, isAuthenticated, login, logout}}>{children}</AuthContext.Provider>;
 }
 
 function useAuth() {
