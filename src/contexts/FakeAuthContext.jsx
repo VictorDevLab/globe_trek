@@ -34,7 +34,8 @@ function AuthProvider({ children }) {
   );
 
   function login(email, password) {
-    if (email === FAKE_USER.name && password === FAKE_USER.password) {
+    console.log(email, password)
+    if (email === FAKE_USER.email && password === FAKE_USER.password) {
       dispatch({ type: "LOGIN", payload: FAKE_USER });
     }
   }
@@ -42,7 +43,7 @@ function AuthProvider({ children }) {
     dispatch({ type: "LOGOUT" });
   }
 
-  return <AuthContext.Provider value={{user, isAuthenticated, login, logout}}>{children}</AuthContext.Provider>;
+  return <AuthContext.Provider value={{ user, isAuthenticated, login, logout }}>{children}</AuthContext.Provider>;
 }
 
 function useAuth() {
