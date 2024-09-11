@@ -13,13 +13,14 @@ export default function Login() {
   const { login, isAuthenticated } = useAuth()
 
   const navigate = useNavigate()
-
+  //uses login from context
   function handleLogin(e) {
     e.preventDefault()
     if (email && password)
       login(email, password)
   }
 
+  //replace : wrapper around redirect that will trigger a client-side redirect to the new location using history. replaceState instead of history. pushState .
   useEffect(function () {
     if (isAuthenticated === true) {
       navigate('/app', { replace: true })
