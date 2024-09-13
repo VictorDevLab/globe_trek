@@ -11,13 +11,6 @@ import { lazy } from "react";
 import { Suspense } from "react";
 import SpinnerFullPage from "./components/SpinnerFullPage";
 
-// import Homepage from "./pages/Homepage";
-// import Pricing from "./pages/Pricing";
-// import Product from "./pages/Product";
-// import AppLayout from "./pages/AppLayout";
-// import PageNotFound from "./pages/PageNotFound";
-// import Login from "./pages/Login";
-
 
 //each page will load when needed
 const Homepage = lazy(() => import("./pages/Homepage"))
