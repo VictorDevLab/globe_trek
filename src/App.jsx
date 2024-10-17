@@ -27,6 +27,7 @@ function App() {
     <AuthProvider>
       <CitiesProvider>
         <BrowserRouter>
+        {/* when a page is being loaded */}
           <Suspense fallback={<SpinnerFullPage />}>
           <Routes>
             {/* use element because you can  pass props */}
